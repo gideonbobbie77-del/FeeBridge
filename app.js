@@ -1,21 +1,50 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-const SUPABASE_URL = 'https://vdpkpvkkrzvlmovlewsek.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkcGtwdmtrcnp2bG1vd2xld3NlayIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzU3NDA5ODg5LCJleHAiOjIwNzI5ODU4ODl9.9H3f4bN7qX8zY1wV2eR3tU4iO5pA6sD7fG8hJ9kL0mN'
+// YOUR SUPABASE KEYS
+const SUPABASE_URL = 'https://vdpkpvvkrzolmvolwsek.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkcGtwdnZrcnpvbG12b2x3c2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTQyNDksImV4cCI6MjEwNDI3MDI0OX0.zpIsevwplJ3jAjE2GAsE7tTGtfXpkaievPmcY4nL6P8'
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+// GET FORM ELEMENTS
+const emailInput = document.querySelector('input[type="email"]')
+const passwordInput = document.querySelector('input[type="password"]')
+const signupBtn = document.querySelector('.Sign\\ Up') // or give button id="signup"
+const loginBtn = document.querySelector('.Login') // or give button id="login"
+const errorMsg = document.querySelector('.error') || document.createElement('p')
 
-window.signup = async () => {
-  const email = document.getElementById('email').value
-  const password = document.getElementById('password').value
-  const { error } = await supabase.auth.signUp({ email, password })
-  document.getElementById('msg').innerText = error ? error.message : 'Check email to confirm!'
-}
+// SIGN UP FUNCTION
+signupBtn.addEventListener('click', async () => {
+  const email = emailInput.value
+  const password = passwordInput.value
+  
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  })
 
-window.login = async () => {
-  const email = document.getElementById('email').value
-  const password = document.getElementById('password').value
-  const { error } = await supabase.auth.signInWithPassword({ email, password })
-  if(error) document.getElementById('msg').innerText = error.message
-  else window.location.href = 'dashboard.html'
-}
+  if (error) {
+    errorMsg.innerText = error.message
+    errorMsg.style.color = 'red'
+  } else {
+    alert('Account created! Check your email to confirm')
+    window.location.href = 'dashboard.html'
+  }
+})
+
+// LOGIN FUNCTION
+loginBtn.addEventListener('click', async () => {
+  const email = emailInput.value
+  const password = passwordInput.value
+  
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  })
+
+  if (error) {
+    errorMsg.innerText = 'Login Failed: ' + error.message
+    errorMsg.style.color = 'red'
+  } else {
+    window.location.href = 'dashboard.html'
+  }
+})   }
