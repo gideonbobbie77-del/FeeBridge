@@ -6,11 +6,11 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 // GET FORM ELEMENTS
-const emailInput = document.querySelector('input[type="email"]')
-const passwordInput = document.querySelector('input[type="password"]')
-const signupBtn = document.querySelector('.Sign\\ Up') // or give button id="signup"
-const loginBtn = document.querySelector('.Login') // or give button id="login"
-const errorMsg = document.querySelector('.error') || document.createElement('p')
+const emailInput = document.getElementById('email')
+const passwordInput = document.getElementById('password')
+const signupBtn = document.getElementById('signup')
+const loginBtn = document.getElementById('login')
+const errorMsg = document.getElementById('msg')
 
 // SIGN UP FUNCTION
 signupBtn.addEventListener('click', async () => {
@@ -47,4 +47,4 @@ loginBtn.addEventListener('click', async () => {
   } else {
     window.location.href = 'dashboard.html'
   }
-})   }
+}) } } }                          }
