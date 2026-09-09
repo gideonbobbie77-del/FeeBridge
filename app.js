@@ -1,5 +1,4 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
-
 // YOUR SUPABASE KEYS
 const SUPABASE_URL = 'https://vdpkpvvkrzolmvolwsek.supabase.co'
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkcGtwdnZrcnpvbG12b2x3c2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTQyNDksImV4cCI6MjEwNDI3MDI0OX0.zpIsevwplJ3jAjE2GAsE7tTGtfXpkaievPmcY4nL6P8'
