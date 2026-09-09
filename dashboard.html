@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>FEEBRIDGE Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{font-family:sans-serif;background:#0f172a;color:white;padding:20px}
-.card{background:#1e293b;padding:20px;border-radius:12px;margin:10px 0}
-button{background:#ef4444;color:white;border:none;padding:10px 20px;border-radius:8px}
-</style>
+  <title>FEEBRIDGE Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:sans-serif;background:#0f172a;color:white;padding:20px;text-align:center}
+    .card{background:#1e293b;padding:20px;border-radius:12px;margin:20px auto;max-width:400px}
+    button{background:#ef4444;color:white;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:16px}
+    h2{color:#22c55e}
+  </style>
 </head>
 <body>
-<h2>Welcome to FEEBRIDGE</h2>
-<div class="card">
-<h3>Your Balance: ₦0</h3>
-<p>Login Successful! 🎉</p>
-</div>
-<button onclick="logout()">Logout</button>
+  <h2>Welcome to FEEBRIDGE ✅</h2>
+  <div class="card">
+    <h3>Your Balance: ₦0.00</h3>
+    <p id="user-email">Loading...</p>
+    <p>Login and Signup dey work!</p>
+  </div>
+  <button onclick="logout()">Logout</button>
 
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
-  const SUPABASE_URL = 'https://vdpkpvvkrzolmvolwsek.supabase.co'
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkcGtwdnZrcnpvbG12b2x3c2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTQyNDksImV4cCI6MjEwNDI3MDI0OX0.zpIsevwplJ3jAjE2GAsE7tTGtfXpkaievPmcY4nL6P8'
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+    
+    const SUPABASE_URL = 'https://vdpkpvvkrzolmvolwsek.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkcGtwdnZrcnpvbG12b2x3c2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTQyNDksImV4cCI6MjEwNDI3MDI0OX0.zpIsevwplJ3jAjE2GAsE7tTGtfXpkaievPmcY4nL6P8'
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
-  window.logout = async () => {
-    await supabase.auth.signOut()
-    window.location.href = 'index.html'
-  }
-</script>
+    // Check if user is logged in
+    const { data: { user } } = await supabase.auth.getUser()
+    if(user){
+      document.getElementById('user-email').innerText = 'Logged in as: ' + user.email
+    } else {
+      window.location.href = 'index.html' // if no user, go back
+    }
+    
+    window.logout = async () => {
+      await supabase.auth.signOut()
+      window.location.href = 'index.html'
+    }
+  </script>
 </body>
-</html> }
+</html>
